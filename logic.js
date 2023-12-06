@@ -1,28 +1,28 @@
-
 // Quiz's initial state 
 let QuestionIndex = 0; 
 let time = questions.length * 15; 
-let clockTimer; 
+let clockTimer = 0;
+let clockTick = 0;
 
 // Created Dom Elements
 let questionsEl = document.querySelector("#questions");
 let timerEL = document.querySelector("#timer");
 let choicesEl = document.querySelector("#choices");
-let submitEl = document.querySelector("#submit");
-let startEl = document.querySelector("#start");
+let submitBtnEl = document.querySelector("#submit");
+let startBtnEl = document.querySelector("#start");
 let initialsEl = document.querySelector("#initials");
 let feedbackEL = document.querySelector("#feedback");
 let clearEl = document.querySelector("#clear"); //this could be wrong not sure
 
 // starts Quiz
-startBtn.onclick = quizStart;
+startBtn.addEventListener("click", quizStart());
 
 // still needs finishing
 function quizStart() {
     clockTimer = setInterval(
     clockTick, 
     1000,
-    )
+    );
     timerEL.textContent = time;
     let startScreenEl = document.getElementById("start-screen");
     startScreenEl.setAttribute(
@@ -36,13 +36,13 @@ function quizStart() {
 }
 
 function getQuestion() {
-    let questions = questions[QuestionIndex];
+    let currentQuestion = questions[currentQuestionIndex];
     let promptEl = document.getElementById(
-    "#question-title"
+    "question-title"
     );
-    promptEl.textContent = Question.prompt;
+    promptEl.textContent = currentQuestion.prompt;
     choicesEl.innerHTML = '';
-    questions.options.forEach(
+    currentQuestion.options.forEach(
         function (choice, i ) {
             let choiceBtn = document.createElement(
                 "button"
@@ -60,7 +60,26 @@ function getQuestion() {
     )
 }
 
+function questionClick {
+    if (
+        this.value !==
+        question[currentQuestionIndex]
+        .answer
+    ) {
+        time -10;
+        if (time < 0) {
+            time = 0;
+        }
+        timerEL.textContent = time; 
+        feedbackEL.textContent = `wrong! The correct answer was ${questions[currentQuestionIndex].answer}.`;
+        feedbackEL.style.color = "red";
+        } else {
+            feedbackEL.textContent = 
+            "Correct!";
+        }
+}
 
+//Quiz Questions
 var questions = [
     {
 questions: 'How do call a function named myFunction?',
@@ -74,7 +93,14 @@ answer: "myFunction()",
     }
 ]
 
-// Get Dom Elements
+// clock timer function ends game
+function clockTick() { 
+    time--; 
+    timerEl.textContent = time; 
+    if (time <= 0) { 
+        quizEnd(); 
+    } 
+} 
 
 
 

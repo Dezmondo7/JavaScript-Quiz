@@ -1,27 +1,27 @@
 // Quiz Questions
 var questions = [
     {
-    prompt: "How do call a function named myFunction?",
+    prompt: "How do you call a function named myFunction?",
     options: ["call myFunction()",  "myFunction()", "call function myFunction", "Call.myFunction"],
     answer: "myFunction()",
     },
 
     {
-    prompt: "How do call a function named myFunction?",
-    options: ["call myFunction()",  "myFunction()", "call function myFunction", "Call.myFunction"],
-    answer: "myFunction()",
+    prompt: "Which of the below wraps around HTML elements?",
+    options: ["{}",  "[]", "<>", "()"],
+    answer: "<>",
     },
 
     {
-    prompt: "How do call a function named myFunction?",
-    options: ["call myFunction()",  "myFunction()", "call function myFunction", "Call.myFunction"],
-    answer: "myFunction()",
+    prompt: "Which of these is only used as a back-end language?",
+    options: ["JavaScript",  "HTML", "CSS", "SQL"],
+    answer: "SQL",
     },
 
     {
-    prompt: "How do call a function named myFunction?",
-    options: ["call myFunction()",  "myFunction()", "call function myFunction", "Call.myFunction"],
-    answer: "myFunction()",
+    prompt: "Which of these is used to host data in the cloud?",
+    options: ["AWS",  "Hyper-V", "VMWare", "Java"],
+    answer: "AWS",
     }];
 
     // Quiz's initial state 
@@ -39,7 +39,7 @@ let initialsEl = document.querySelector("#initials");
 let feedbackEl = document.querySelector("#feedback");
 let clearEl = document.querySelector("#clear"); //this could be wrong not sure
 
-// still needs finishing
+// Starts the quiz
 function quizStart() {
     timerId = setInterval(clockTick, 1000);
     timerEl.textContent = time;
@@ -49,9 +49,10 @@ function quizStart() {
     getQuestion();
 }
 
+//Gets the next question
 function getQuestion() {
     let currentQuestion = questions[currentQuestionIndex];
-    let promptEl = document.getElementById("question-title")
+    let promptEl = document.getElementById("question-title");
     promptEl.textContent = currentQuestion.prompt;
     choicesEl.innerHTML = "";
     currentQuestion.options.forEach(function (choice, i) {
@@ -63,6 +64,7 @@ function getQuestion() {
         });
 }
 
+
 function questionClick() {
     if (this.value !== questions[currentQuestionIndex].answer) {
         time -= 10;
@@ -70,7 +72,7 @@ function questionClick() {
             time = 0;
         }
         timerEl.textContent = time; 
-        feedbackEl.textContent = `wrong! The correct answer was ${questions[currentQuestionIndex].answer}.`;
+        feedbackEl.textContent = `Wrong! The correct answer was ${questions[currentQuestionIndex].answer}.`;
         feedbackEl.style.color = "red";
         } else {
             feedbackEl.textContent = 
@@ -95,9 +97,9 @@ function questionClick() {
 //Quiz Questions
 function quizEnd() {
     clearInterval(timerId);
-    var endScreenEl = document.getElementById("quiz-end");
+    var endScreenEl = document.getElementById("end-screen");
     endScreenEl.removeAttribute("class");
-    var finalScoreEl = document.getElementById("score-final");
+    var finalScoreEl = document.getElementById("final-score");
     finalScoreEl.textContent = time;
     questionsEl.setAttribute("class", "hide");
 }

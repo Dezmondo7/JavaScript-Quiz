@@ -24,7 +24,7 @@ var questions = [
     answer: "AWS",
     }];
 
-    // Quiz's initial state 
+// Quiz's initial state 
 let currentQuestionIndex = 0; 
 let time = questions.length * 15; 
 let timerId;
@@ -38,6 +38,7 @@ let startBtn = document.querySelector("#start");
 let initialsEl = document.querySelector("#initials");
 let feedbackEl = document.querySelector("#feedback");
 let clearEl = document.querySelector("#clear"); //this could be wrong not sure
+let nameEl = document.querySelector("#name");
 
 // Starts the quiz
 function quizStart() {
@@ -64,7 +65,7 @@ function getQuestion() {
         });
 }
 
-
+//Checks for the right/wrong answer
 function questionClick() {
     if (this.value !== questions[currentQuestionIndex].answer) {
         time -= 10;
@@ -94,12 +95,12 @@ function questionClick() {
         }
 
 
-//Quiz Questions
+//Quiz Ends
 function quizEnd() {
     clearInterval(timerId);
-    var endScreenEl = document.getElementById("end-screen");
+    let endScreenEl = document.getElementById("end-screen");
     endScreenEl.removeAttribute("class");
-    var finalScoreEl = document.getElementById("final-score");
+    let finalScoreEl = document.getElementById("final-score");
     finalScoreEl.textContent = time;
     questionsEl.setAttribute("class", "hide");
 }
@@ -113,7 +114,33 @@ function clockTick() {
     }
 }
 
-// starts quiz
+// function to save high scores
+function savedScores() {
+    let name = nameEl.value.trim();
+    if (name !== "") {
+        let highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+        let newScore = {
+            score: time,
+            name: name,
+        };
+            highscores.push(newScore);
+            window.localStorage.getItem("highscores", JSON.stringify(highscores));
+        }
+    }
+
 startBtn.onclick = quizStart;
+
+/*Checks for scores entered    
+function EnterScores(event) {
+    if (event.key === "Enter") {
+        savedScores();
+    }
+}    
+nameEl.onkeyup = EnterScores;*/
+
+startBtn.onclick = quizStart; 
+
+submitBtn.onclick = savedScores;
+// starts quiz
 
 

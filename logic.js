@@ -19,7 +19,7 @@ var questions = [
     },
 
     {
-    prompt: "Which of these is used to host data in the cloud?",
+    prompt: "What technology is used to host data in the cloud?",
     options: ["AWS",  "Hyper-V", "VMWare", "Java"],
     answer: "AWS",
     }];
@@ -140,7 +140,6 @@ nameEl.onkeyup = EnterScores;*/
 
 startBtn.onclick = quizStart; 
 
-submitBtn.onclick = savedScores;
-// starts quiz
+
 
 

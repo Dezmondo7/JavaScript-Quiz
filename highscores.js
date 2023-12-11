@@ -1,21 +1,21 @@
-function saveHighScores() {
-    let name = nameEl.value.trim();
-    if (name !== "") {
-        let highscores  = JSON.parse(window.localStorage.getItem("highscores")) || [];
-        let newScore = {
-            score: time,
-            name: name,
-        };
-            highscores.push(newScore);
-            window.localStorage.getItem("highscores", JSON.stringify(highscores));
-        }
-    };
+var scoreBtn = document.querySelector("#scores");
 
-    function enterScores(event) {
-        if (event.key === "Enter") {
-            highscores();
-        }
-    }    
-    nameEl.onkeyup = enterScores;
+function printScores() {
+    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    highscores.sort(function (a, b) {
+        return b.score - a.score;
+});
+    highscores.forEach(function(score) {
+    var listTag = document.createElement("li");
+    listTag.textContent = score.name + " - " + score.score;
+    var olEl = document.getElementById("highscores");
+    olEl.appendChild(listTag);
+   });
+}
 
-    submitBtn.onclick = highscores;
+function clearScores() {
+    window.localStorage.removeItem("highscores");
+    window.location.reload();
+}   document.getElementById("clear").onclick = clearScores;
+
+printScores();

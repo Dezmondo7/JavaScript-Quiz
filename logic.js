@@ -118,13 +118,27 @@ function clockTick() {
 
 startBtn.onclick = quizStart;
 
-/*Checks for scores entered    
-function EnterScores(event) {
-    if (event.key === "Enter") {
-        savedScores();
-    }
-}    
-nameEl.onkeyup = EnterScores;*/
+function saveHighScores() {
+    let name = nameEl.value.trim();
+    if (name !== "") {
+        let highscores  = JSON.parse(window.localStorage.getItem("highscores")) || [];
+        let newScore = {
+            score: time,
+            name: name,
+        };
+            highscores.push(newScore);
+            window.localStorage.getItem("highscores", JSON.stringify(highscores));
+        }
+    };
+
+    function enterScores(event) {
+        if (event.key === "Enter") {
+            saveHighScores();
+        }
+    }    
+    nameEl.onkeyup = enterScores;
+
+    submitBtn.onclick = saveHighScores;
 
 startBtn.onclick = quizStart; 
 

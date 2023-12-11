@@ -114,19 +114,7 @@ function clockTick() {
     }
 }
 
-// function to save high scores
-function savedScores() {
-    let name = nameEl.value.trim();
-    if (name !== "") {
-        let highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
-        let newScore = {
-            score: time,
-            name: name,
-        };
-            highscores.push(newScore);
-            window.localStorage.getItem("highscores", JSON.stringify(highscores));
-        }
-    }
+
 
 startBtn.onclick = quizStart;
 

@@ -1,21 +1,21 @@
-function savedHighScores() {
+function saveHighScores() {
     let name = nameEl.value.trim();
     if (name !== "") {
-        let savedScores = JSON.parse(window.localStorage.getItem("final-score")) || [];
+        let highscores  = JSON.parse(window.localStorage.getItem("highscores")) || [];
         let newScore = {
             score: time,
             name: name,
         };
-            savedScores.push(newScore);
-            window.localStorage.getItem("final-score", JSON.stringify(savedScores));
+            highscores.push(newScore);
+            window.localStorage.getItem("highscores", JSON.stringify(highscores));
         }
-    }
+    };
 
     function enterScores(event) {
         if (event.key === "Enter") {
-            savedScores();
+            highscores();
         }
     }    
     nameEl.onkeyup = enterScores;
 
-    submitBtn.onclick = savedScores;
+    submitBtn.onclick = highscores;
